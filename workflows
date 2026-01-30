@@ -20,11 +20,11 @@
         64,
         160
       ],
-      "id": "f8fc42b5-d4f8-4c34-8c57-2f8d34f67448",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Gmail Trigger",
       "credentials": {
         "gmailOAuth2": {
-          "id": "QcHog2dQuCitdmy0",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "LRTJ1B-ERSA"
         }
       }
@@ -42,12 +42,12 @@
         960,
         144
       ],
-      "id": "66180065-cefe-41d4-a148-d0ee9eb6e364",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Get a message",
-      "webhookId": "dd054c88-2993-414e-a391-1ec63a6bee8f",
+      "webhookId": "xxxxxxxxxxxxxxxxxx",
       "credentials": {
         "gmailOAuth2": {
-          "id": "QcHog2dQuCitdmy0",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "LRTJ1B-ERSA"
         }
       }
@@ -62,7 +62,7 @@
         592,
         416
       ],
-      "id": "0992b3cd-bb93-4594-b2ac-026e815503fd",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Structured Output Parser"
     },
     {
@@ -81,11 +81,11 @@
         256,
         416
       ],
-      "id": "1d27c800-283b-490c-b305-619913c038d2",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "gpt-4-mini1",
       "credentials": {
         "openAiApi": {
-          "id": "vZFcosJhbkX9WAf2",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "Setiawan"
         }
       }
@@ -110,7 +110,7 @@
         352,
         160
       ],
-      "id": "27db2bb0-03d8-452f-ade8-692f1f33ce10",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Need SA Assistant?"
     },
     {
@@ -131,12 +131,12 @@
         400,
         912
       ],
-      "id": "c2831f2f-6ab5-4022-9ab4-0757f2590975",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Supabase Vector Store",
       "notesInFlow": false,
       "credentials": {
         "supabaseApi": {
-          "id": "bIc9gWX9ILMelImF",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "LRTJ1B"
         }
       }
@@ -151,11 +151,11 @@
         288,
         1168
       ],
-      "id": "fb76cc24-df15-4d50-9b77-29ffd5b2386d",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Embeddings OpenAI",
       "credentials": {
         "openAiApi": {
-          "id": "vZFcosJhbkX9WAf2",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "Setiawan"
         }
       }
@@ -172,7 +172,7 @@
         608,
         1152
       ],
-      "id": "caf74194-b3c4-448a-86ae-dd8aa5397ed3",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Default Data Loader"
     },
     {
@@ -196,11 +196,11 @@
         1712,
         304
       ],
-      "id": "7ecf413c-a0cd-46ff-ab10-fcf81f303244",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Supabase Vector Store1",
       "credentials": {
         "supabaseApi": {
-          "id": "bIc9gWX9ILMelImF",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "LRTJ1B"
         }
       }
@@ -215,11 +215,11 @@
         1728,
         448
       ],
-      "id": "d8236ea8-0232-4690-b610-aa48403fb999",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Embeddings OpenAI1",
       "credentials": {
         "openAiApi": {
-          "id": "vZFcosJhbkX9WAf2",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "Setiawan"
         }
       }
@@ -236,9 +236,9 @@
         64,
         912
       ],
-      "id": "57eaede9-38c4-44ff-af3e-44ca27c84ea4",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "When chat message received",
-      "webhookId": "fd45c5e8-7ae0-482e-b8bf-d3bb62bb2e60"
+      "webhookId": "xxxxxxxxxxxxxxxxxx"
     },
     {
       "parameters": {
@@ -253,7 +253,7 @@
         1456,
         144
       ],
-      "id": "517ae4a2-99df-470c-a176-77c922a3aa26",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "AI Agent"
     },
     {
@@ -268,7 +268,7 @@
         1584,
         416
       ],
-      "id": "e86edb87-0312-4b4d-a605-c9cd3ecbc429",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Simple Memory"
     },
     {
@@ -287,12 +287,12 @@
         2064,
         144
       ],
-      "id": "cbb444d9-c281-43b1-be33-2261716ef7c4",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Send a message",
-      "webhookId": "782fcb94-69ed-4a0e-9818-b29605b57279",
+      "webhookId": "xxxxxxxxxxxxxxxxxx",
       "credentials": {
         "gmailOAuth2": {
-          "id": "QcHog2dQuCitdmy0",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "LRTJ1B-ERSA"
         }
       }
@@ -302,25 +302,25 @@
         "assignments": {
           "assignments": [
             {
-              "id": "615df9dc-7ef9-491f-b8f1-0cba28852e77",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "input_type",
               "value": "email",
               "type": "string"
             },
             {
-              "id": "92e0269a-2aa4-4945-a35a-f4a389dcb92f",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "chatInput",
               "value": "={{ $json.html }}",
               "type": "string"
             },
             {
-              "id": "9d22f00e-657a-43e1-896b-d5177f8b0010",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "email_id",
               "value": "={{ $json.from.value[0].address }}",
               "type": "string"
             },
             {
-              "id": "657904fb-b142-4b5b-89fc-b13178b1b0b0",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "subject",
               "value": "={{ $json.subject }}",
               "type": "string"
@@ -335,7 +335,7 @@
         1152,
         144
       ],
-      "id": "9be6efc1-84dc-4c7a-8b7a-eb7c118cfa70",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Set Context"
     },
     {
@@ -349,7 +349,7 @@
           },
           "conditions": [
             {
-              "id": "59a8ba0e-f996-404d-897a-3502dbe4485a",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "leftValue": "={{ $json.output.need_sa }}",
               "rightValue": "",
               "operator": {
@@ -369,7 +369,7 @@
         688,
         160
       ],
-      "id": "f859929b-6dee-4a32-a1b0-3332da4f1363",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "IF Need SA Assistant"
     },
     {
@@ -385,7 +385,7 @@
         0
       ],
       "typeVersion": 1,
-      "id": "02593cc1-a414-4d1a-ab21-5675a78b06bc",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Sticky Note"
     },
     {
@@ -399,7 +399,7 @@
         0
       ],
       "typeVersion": 1,
-      "id": "672dd7c8-1519-4038-b329-524b137cdce0",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Sticky Note3"
     },
     {
@@ -415,7 +415,7 @@
         0
       ],
       "typeVersion": 1,
-      "id": "7a6ecf36-e0ec-4d98-8262-4314515f1dcb",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Sticky Note1"
     },
     {
@@ -431,7 +431,7 @@
         0
       ],
       "typeVersion": 1,
-      "id": "47e71e7e-4f1b-4d36-94e2-aa7d54d27bd8",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Sticky Note2"
     },
     {
@@ -450,11 +450,11 @@
         1344,
         336
       ],
-      "id": "004d4af1-6a33-4d10-9551-e0b83e3519f8",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "vZFcosJhbkX9WAf2",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "Setiawan"
         }
       }
@@ -472,12 +472,12 @@
         -176,
         688
       ],
-      "id": "4e087fe8-9db3-4c27-a768-13a8c72778fa",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Telegram Trigger",
-      "webhookId": "34441abb-a993-4438-b7c1-87b6aaa905e9",
+      "webhookId": "xxxxxxxxxxxxxxxxxx",
       "credentials": {
         "telegramApi": {
-          "id": "J2YgDYeeqAjwRKMJ",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "bot testing n8n"
         }
       }
@@ -487,25 +487,25 @@
         "assignments": {
           "assignments": [
             {
-              "id": "615df9dc-7ef9-491f-b8f1-0cba28852e77",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "input_type",
               "value": "AI Input",
               "type": "string"
             },
             {
-              "id": "657904fb-b142-4b5b-89fc-b13178b1b0b0",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "Question",
               "value": "={{ $('Set Context').item.json.chatInput }}",
               "type": "string"
             },
             {
-              "id": "92e0269a-2aa4-4945-a35a-f4a389dcb92f",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "Answer",
               "value": "={{ $json.output }}",
               "type": "string"
             },
             {
-              "id": "9d22f00e-657a-43e1-896b-d5177f8b0010",
+              "id": "xxxxxxxxxxxxxxxxxx",
               "name": "email_id",
               "value": "={{ $('Get a message').item.json.from.value[0].address }}",
               "type": "string"
@@ -520,7 +520,7 @@
         1840,
         144
       ],
-      "id": "ce4459c3-b47a-4cb6-850b-d3f0297bd25e",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Message Format"
     },
     {
@@ -533,11 +533,11 @@
         1440,
         464
       ],
-      "id": "6f1dbb20-5970-47a4-8aae-2389c12b380d",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "OSn2NApPl9h9LlEX",
+          "id": "xxxxxxxxxxxxxxxxxx",
           "name": "Setiawan"
         }
       }
@@ -729,37 +729,37 @@
     "timezone": "Asia/Jakarta",
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
-    "errorWorkflow": "hh5EKKoOtEbS0TEO"
+    "errorWorkflow": "xxxxxxxxxxxxxxxxxx"
   },
   "versionId": "899d0b6b-389c-497a-957d-f2ee08c007bb",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3054b6b91ecd330b2e56d2739393d0919d9e3f810cfaef9957f87cd7c96d32ed"
+    "instanceId": "xxxxxxxxxxxxxxxxxx"
   },
   "id": "SN5HKgmo7sNZLuEI",
   "tags": [
     {
       "updatedAt": "2025-12-12T01:30:42.029Z",
       "createdAt": "2025-12-12T01:30:42.029Z",
-      "id": "5ZlUzjxry46Y5SJN",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Main_Workflow"
     },
     {
       "updatedAt": "2025-12-12T01:30:42.027Z",
       "createdAt": "2025-12-12T01:30:42.027Z",
-      "id": "JMfvUFy9c6uxe1j7",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Chatbot"
     },
     {
       "updatedAt": "2025-12-12T01:30:42.035Z",
       "createdAt": "2025-12-12T01:30:42.035Z",
-      "id": "SBUc7MBU9IU0FQ42",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "CRM_CS"
     },
     {
       "updatedAt": "2025-12-12T01:30:42.031Z",
       "createdAt": "2025-12-12T01:30:42.031Z",
-      "id": "rWYpEJG3iajydPBq",
+      "id": "xxxxxxxxxxxxxxxxxx",
       "name": "Operational"
     }
   ]
