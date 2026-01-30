@@ -1,0 +1,7 @@
+Email → Gmail Trigger → AI Classifier
+                      ↓
+                Supabase Vector DB
+                      ↓
+                   AI Agent
+                      ↓
+                Gmail Auto Reply
