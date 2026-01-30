@@ -1,1 +1,766 @@
-
+{
+  "name": "MiniProject-Main chat bot auto reply email for LRTJ1B-ERSA",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        64,
+        160
+      ],
+      "id": "f8fc42b5-d4f8-4c34-8c57-2f8d34f67448",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "QcHog2dQuCitdmy0",
+          "name": "LRTJ1B-ERSA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "simple": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        960,
+        144
+      ],
+      "id": "66180065-cefe-41d4-a148-d0ee9eb6e364",
+      "name": "Get a message",
+      "webhookId": "dd054c88-2993-414e-a391-1ec63a6bee8f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "QcHog2dQuCitdmy0",
+          "name": "LRTJ1B-ERSA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"sender_status\": \"PMC | KSO | 3PV | JAKPRO | UNKNOWN\",\n  \"need_sa\": true,\n  \"action\": \"RESPOND | IGNORE\",\n  \"reason\": \"string\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        592,
+        416
+      ],
+      "id": "0992b3cd-bb93-4594-b2ac-026e815503fd",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        416
+      ],
+      "id": "1d27c800-283b-490c-b305-619913c038d2",
+      "name": "gpt-4-mini1",
+      "credentials": {
+        "openAiApi": {
+          "id": "vZFcosJhbkX9WAf2",
+          "name": "Setiawan"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=From: {{ $json.From }}\nSubject: {{ $json.Subject }}\nEmail Snippet: {{ $json.snippet }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an AI specialized in analyzing emails.\n\nYou will receive:\n1. Email subject\n2. Email snippet\n3. A configuration table containing sender rules and ignore rules\n\nInstructions:\n- always use General_Config\n- Identify the sender by matching the subject or snippet against sender rules.\n- If multiple rules match, choose the highest priority.\n- If ignore keywords are detected, classify the email as IGNORE.\n- Determine whether the email requires SA Assistant based on configuration.\n\nOutput MUST follow structured format:\n- sender_status\n- need_sa (true/false)\n- reason\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        352,
+        160
+      ],
+      "id": "27db2bb0-03d8-452f-ade8-692f1f33ce10",
+      "name": "Need SA Assistant?"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "ergsdocs",
+          "mode": "list",
+          "cachedResultName": "ergsdocs"
+        },
+        "embeddingBatchSize": 800000,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        912
+      ],
+      "id": "c2831f2f-6ab5-4022-9ab4-0757f2590975",
+      "name": "Supabase Vector Store",
+      "notesInFlow": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "bIc9gWX9ILMelImF",
+          "name": "LRTJ1B"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        1168
+      ],
+      "id": "fb76cc24-df15-4d50-9b77-29ffd5b2386d",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "vZFcosJhbkX9WAf2",
+          "name": "Setiawan"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "loader": "pdfLoader",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        608,
+        1152
+      ],
+      "id": "caf74194-b3c4-448a-86ae-dd8aa5397ed3",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "use this tool to get any information about document of VOLUME 3 – The Employer’s Requirement – GENERAL SPECIFICATION Clause 20 & 21",
+        "tableName": {
+          "__rl": true,
+          "value": "ergsdocs",
+          "mode": "list",
+          "cachedResultName": "ergsdocs"
+        },
+        "topK": 10,
+        "options": {
+          "queryName": "match_ergsdocs"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        1712,
+        304
+      ],
+      "id": "7ecf413c-a0cd-46ff-ab10-fcf81f303244",
+      "name": "Supabase Vector Store1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "bIc9gWX9ILMelImF",
+          "name": "LRTJ1B"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1728,
+        448
+      ],
+      "id": "d8236ea8-0232-4690-b610-aa48403fb999",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "vZFcosJhbkX9WAf2",
+          "name": "Setiawan"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "allowFileUploads": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        64,
+        912
+      ],
+      "id": "57eaede9-38c4-44ff-af3e-44ca27c84ea4",
+      "name": "When chat message received",
+      "webhookId": "fd45c5e8-7ae0-482e-b8bf-d3bb62bb2e60"
+    },
+    {
+      "parameters": {
+        "needsFallback": true,
+        "options": {
+          "systemMessage": "Send output AI to email"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1456,
+        144
+      ],
+      "id": "517ae4a2-99df-470c-a176-77c922a3aa26",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.chatInput }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1584,
+        416
+      ],
+      "id": "e86edb87-0312-4b4d-a605-c9cd3ecbc429",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email_id }}",
+        "subject": "={{ $('Gmail Trigger').item.json.Subject }}",
+        "message": "=Question : {{ $json.Question }}\nAnswer : \n{{ $json.Answer }}",
+        "options": {
+          "appendAttribution": false,
+          "ccList": "pray4bms@gmail.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2064,
+        144
+      ],
+      "id": "cbb444d9-c281-43b1-be33-2261716ef7c4",
+      "name": "Send a message",
+      "webhookId": "782fcb94-69ed-4a0e-9818-b29605b57279",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "QcHog2dQuCitdmy0",
+          "name": "LRTJ1B-ERSA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "615df9dc-7ef9-491f-b8f1-0cba28852e77",
+              "name": "input_type",
+              "value": "email",
+              "type": "string"
+            },
+            {
+              "id": "92e0269a-2aa4-4945-a35a-f4a389dcb92f",
+              "name": "chatInput",
+              "value": "={{ $json.html }}",
+              "type": "string"
+            },
+            {
+              "id": "9d22f00e-657a-43e1-896b-d5177f8b0010",
+              "name": "email_id",
+              "value": "={{ $json.from.value[0].address }}",
+              "type": "string"
+            },
+            {
+              "id": "657904fb-b142-4b5b-89fc-b13178b1b0b0",
+              "name": "subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1152,
+        144
+      ],
+      "id": "9be6efc1-84dc-4c7a-8b7a-eb7c118cfa70",
+      "name": "Set Context"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "59a8ba0e-f996-404d-897a-3502dbe4485a",
+              "leftValue": "={{ $json.output.need_sa }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        160
+      ],
+      "id": "f859929b-6dee-4a32-a1b0-3332da4f1363",
+      "name": "IF Need SA Assistant"
+    },
+    {
+      "parameters": {
+        "content": "## Pemeriksaan Email Masuk\n**Apakah email yang masuk membutuhkan SA Assistant atau tidak?**\n*Jika membutuhkan SA Assistant, maka pesan email diteruskan dengan transformasi data*\n*Jika tidak membutuhkan SA Assistant, maka pesan email tidak diteruskan (selesai)*",
+        "height": 592,
+        "width": 1072,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "02593cc1-a414-4d1a-ab21-5675a78b06bc",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Cek email masuk\n*ke dalam Inbox Email (To) yang sudah ditentukan*",
+        "height": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "672dd7c8-1519-4038-b329-524b137cdce0",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Pemeriksaan Pesan Email ke dalam database Supabase\n*Membaca isi email untuk diperiksa oleh AI Agent ke dalam database Supabase yang berisi pengetahuan tentang dokumen ER System Assurance (SA). Jika isi email ditemukan atau tidak ditemukan dalam database Supabase, respon akan dikirimkan kembali ke alamat email pengirim (From)*",
+        "height": 592,
+        "width": 672,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1312,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "7a6ecf36-e0ec-4d98-8262-4314515f1dcb",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Kirim respon AI Agent ke email Pengirim\n",
+        "height": 592,
+        "width": 304,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1984,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "47e71e7e-4f1b-4d36-94e2-aa7d54d27bd8",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1344,
+        336
+      ],
+      "id": "004d4af1-6a33-4d10-9551-e0b83e3519f8",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "vZFcosJhbkX9WAf2",
+          "name": "Setiawan"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        688
+      ],
+      "id": "4e087fe8-9db3-4c27-a768-13a8c72778fa",
+      "name": "Telegram Trigger",
+      "webhookId": "34441abb-a993-4438-b7c1-87b6aaa905e9",
+      "credentials": {
+        "telegramApi": {
+          "id": "J2YgDYeeqAjwRKMJ",
+          "name": "bot testing n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "615df9dc-7ef9-491f-b8f1-0cba28852e77",
+              "name": "input_type",
+              "value": "AI Input",
+              "type": "string"
+            },
+            {
+              "id": "657904fb-b142-4b5b-89fc-b13178b1b0b0",
+              "name": "Question",
+              "value": "={{ $('Set Context').item.json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "92e0269a-2aa4-4945-a35a-f4a389dcb92f",
+              "name": "Answer",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            },
+            {
+              "id": "9d22f00e-657a-43e1-896b-d5177f8b0010",
+              "name": "email_id",
+              "value": "={{ $('Get a message').item.json.from.value[0].address }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1840,
+        144
+      ],
+      "id": "ce4459c3-b47a-4cb6-850b-d3f0297bd25e",
+      "name": "Message Format"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        464
+      ],
+      "id": "6f1dbb20-5970-47a4-8aae-2389c12b380d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "OSn2NApPl9h9LlEX",
+          "name": "Setiawan"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Need SA Assistant?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a message": {
+      "main": [
+        [
+          {
+            "node": "Set Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Need SA Assistant?",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4-mini1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Need SA Assistant?",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Need SA Assistant?": {
+      "main": [
+        [
+          {
+            "node": "IF Need SA Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Message Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Context": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Need SA Assistant": {
+      "main": [
+        [
+          {
+            "node": "Get a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Format": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Jakarta",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "hh5EKKoOtEbS0TEO"
+  },
+  "versionId": "899d0b6b-389c-497a-957d-f2ee08c007bb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3054b6b91ecd330b2e56d2739393d0919d9e3f810cfaef9957f87cd7c96d32ed"
+  },
+  "id": "SN5HKgmo7sNZLuEI",
+  "tags": [
+    {
+      "updatedAt": "2025-12-12T01:30:42.029Z",
+      "createdAt": "2025-12-12T01:30:42.029Z",
+      "id": "5ZlUzjxry46Y5SJN",
+      "name": "Main_Workflow"
+    },
+    {
+      "updatedAt": "2025-12-12T01:30:42.027Z",
+      "createdAt": "2025-12-12T01:30:42.027Z",
+      "id": "JMfvUFy9c6uxe1j7",
+      "name": "Chatbot"
+    },
+    {
+      "updatedAt": "2025-12-12T01:30:42.035Z",
+      "createdAt": "2025-12-12T01:30:42.035Z",
+      "id": "SBUc7MBU9IU0FQ42",
+      "name": "CRM_CS"
+    },
+    {
+      "updatedAt": "2025-12-12T01:30:42.031Z",
+      "createdAt": "2025-12-12T01:30:42.031Z",
+      "id": "rWYpEJG3iajydPBq",
+      "name": "Operational"
+    }
+  ]
+}
