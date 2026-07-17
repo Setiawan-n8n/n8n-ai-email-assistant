@@ -1,0 +1,177 @@
+[
+ {
+  "code": "SGU",
+  "name": "Surabaya Gubeng",
+  "side": "barat",
+  "is_own_station": true,
+  "keterangan": "Stasiun asal simulasi ini."
+ },
+ {
+  "code": "BD",
+  "name": "Bandung",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "BL",
+  "name": "Blitar",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "CN",
+  "name": "Cirebon",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": "Perlu verifikasi kode resmi."
+ },
+ {
+  "code": "CP",
+  "name": "Cilacap",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": "Perlu verifikasi kode resmi."
+ },
+ {
+  "code": "GMR",
+  "name": "Jakarta Gambir",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "JR",
+  "name": "Jember",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "KAC",
+  "name": "Kiaracondong",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "KTG",
+  "name": "Ketapang (Banyuwangi)",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "KTS",
+  "name": "Kertosono",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "LPN",
+  "name": "Lempuyangan",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "ML",
+  "name": "Malang",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "MLK",
+  "name": "Malang Kotalama",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": "Perlu verifikasi kode resmi."
+ },
+ {
+  "code": "MN",
+  "name": "Madiun",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "MR",
+  "name": "Mojokerto",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "PB",
+  "name": "Probolinggo",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": "Perlu verifikasi kode resmi."
+ },
+ {
+  "code": "PS",
+  "name": "Pasuruan",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": "Perlu verifikasi kode resmi."
+ },
+ {
+  "code": "PSE",
+  "name": "Jakarta Pasar Senen",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "PWT",
+  "name": "Purwokerto",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "SB",
+  "name": "Depo/Dinas Sidotopo (SB)",
+  "side": "timur",
+  "is_own_station": false,
+  "keterangan": "Kode internal dinas rangkaian/langsir, arah diasumsikan ke Sidotopo. Perlu verifikasi oleh Sintelis/PPKA."
+ },
+ {
+  "code": "SBE",
+  "name": "Surabaya (Kalimas/Sidotopo)",
+  "side": "timur",
+  "is_own_station": false,
+  "keterangan": "Perlu verifikasi kode resmi."
+ },
+ {
+  "code": "SBI",
+  "name": "Surabaya Pasar Turi",
+  "side": "timur",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "SDA",
+  "name": "Sidoarjo",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "SDT",
+  "name": "Sidotopo",
+  "side": "timur",
+  "is_own_station": false,
+  "keterangan": ""
+ },
+ {
+  "code": "YK",
+  "name": "Yogyakarta",
+  "side": "barat",
+  "is_own_station": false,
+  "keterangan": ""
+ }
+]
