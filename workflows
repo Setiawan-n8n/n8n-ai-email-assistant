@@ -1,5 +1,5 @@
 {
-  "name": "Main chat bot auto reply email for LRTJ1B-ERSA",
+  "name": "Main chat bot auto reply email for Project",
   "nodes": [
     {
       "parameters": {
@@ -25,7 +25,7 @@
       "credentials": {
         "gmailOAuth2": {
           "id": "xxxxxxxxxxxxxxxxxx",
-          "name": "LRTJ1B-ERSA"
+          "name": "Project Mailbox"
         }
       }
     },
@@ -48,13 +48,13 @@
       "credentials": {
         "gmailOAuth2": {
           "id": "xxxxxxxxxxxxxxxxxx",
-          "name": "LRTJ1B-ERSA"
+          "name": "Project Mailbox"
         }
       }
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"sender_status\": \"PMC | KSO | 3PV | JAKPRO | UNKNOWN\",\n  \"need_sa\": true,\n  \"action\": \"RESPOND | IGNORE\",\n  \"reason\": \"string\"\n}"
+        "jsonSchemaExample": "{\n  \"sender_status\": \"STAKEHOLDER_A | STAKEHOLDER_B | STAKEHOLDER_C | STAKEHOLDER_D | UNKNOWN\",\n  \"need_sa\": true,\n  \"action\": \"RESPOND | IGNORE\",\n  \"reason\": \"string\"\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
@@ -98,7 +98,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "You are an AI specialized in analyzing emails.\n\nYou will receive:\n1. Email subject\n2. Email snippet\n3. A configuration table containing sender rules and ignore rules\n\nInstructions:\n- always use General_Config\n- Identify the sender by matching the subject or snippet against sender rules.\n- If multiple rules match, choose the highest priority.\n- If ignore keywords are detected, classify the email as IGNORE.\n- Determine whether the email requires SA Assistant based on configuration.\n\nOutput MUST follow structured format:\n- sender_status\n- need_sa (true/false)\n- reason\n"
+              "message": "You are an AI specialized in analyzing emails.\n\nYou will receive:\n1. Email subject\n2. Email snippet\n3. A configuration table containing sender rules and ignore rules\n\nInstructions:\n- always use General_Config\n- Identify the sender by matching the subject or snippet against sender rules.\n- If multiple rules match, choose the highest priority.\n- If ignore keywords are detected, classify the email as IGNORE.\n- Determine whether the email requires assistant response based on configuration.\n\nOutput MUST follow structured format:\n- sender_status\n- need_sa (true/false)\n- reason\n"
             }
           ]
         },
@@ -111,16 +111,16 @@
         160
       ],
       "id": "xxxxxxxxxxxxxxxxxx",
-      "name": "Need SA Assistant?"
+      "name": "Need Assistant Response?"
     },
     {
       "parameters": {
         "mode": "insert",
         "tableName": {
           "__rl": true,
-          "value": "ergsdocs",
+          "value": "project_docs",
           "mode": "list",
-          "cachedResultName": "ergsdocs"
+          "cachedResultName": "project_docs"
         },
         "embeddingBatchSize": 800000,
         "options": {}
@@ -137,7 +137,7 @@
       "credentials": {
         "supabaseApi": {
           "id": "xxxxxxxxxxxxxxxxxx",
-          "name": "LRTJ1B"
+          "name": "Project Vector DB"
         }
       }
     },
@@ -178,16 +178,16 @@
     {
       "parameters": {
         "mode": "retrieve-as-tool",
-        "toolDescription": "use this tool to get any information about document of VOLUME 3 – The Employer’s Requirement – GENERAL SPECIFICATION Clause 20 & 21",
+        "toolDescription": "use this tool to get information from the project's technical specification / reference documents",
         "tableName": {
           "__rl": true,
-          "value": "ergsdocs",
+          "value": "project_docs",
           "mode": "list",
-          "cachedResultName": "ergsdocs"
+          "cachedResultName": "project_docs"
         },
         "topK": 10,
         "options": {
-          "queryName": "match_ergsdocs"
+          "queryName": "match_project_docs"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
@@ -201,7 +201,7 @@
       "credentials": {
         "supabaseApi": {
           "id": "xxxxxxxxxxxxxxxxxx",
-          "name": "LRTJ1B"
+          "name": "Project Vector DB"
         }
       }
     },
@@ -278,7 +278,7 @@
         "message": "=Question : {{ $json.Question }}\nAnswer : \n{{ $json.Answer }}",
         "options": {
           "appendAttribution": false,
-          "ccList": "pray4bms@gmail.com"
+          "ccList": "team@example.com"
         }
       },
       "type": "n8n-nodes-base.gmail",
@@ -293,7 +293,7 @@
       "credentials": {
         "gmailOAuth2": {
           "id": "xxxxxxxxxxxxxxxxxx",
-          "name": "LRTJ1B-ERSA"
+          "name": "Project Mailbox"
         }
       }
     },
@@ -370,11 +370,11 @@
         160
       ],
       "id": "xxxxxxxxxxxxxxxxxx",
-      "name": "IF Need SA Assistant"
+      "name": "IF Need Assistant Response"
     },
     {
       "parameters": {
-        "content": "## Pemeriksaan Email Masuk\n**Apakah email yang masuk membutuhkan SA Assistant atau tidak?**\n*Jika membutuhkan SA Assistant, maka pesan email diteruskan dengan transformasi data*\n*Jika tidak membutuhkan SA Assistant, maka pesan email tidak diteruskan (selesai)*",
+        "content": "## Incoming Email Check\n**Does the incoming email require an assistant response?**\n*If yes, the message is forwarded with data transformation*\n*If not, the email is not forwarded (end)*",
         "height": 592,
         "width": 1072,
         "color": 5
@@ -390,7 +390,7 @@
     },
     {
       "parameters": {
-        "content": "## Cek email masuk\n*ke dalam Inbox Email (To) yang sudah ditentukan*",
+        "content": "## Check incoming email\n*into the configured Inbox (To)*",
         "height": 592
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -404,7 +404,7 @@
     },
     {
       "parameters": {
-        "content": "## Pemeriksaan Pesan Email ke dalam database Supabase\n*Membaca isi email untuk diperiksa oleh AI Agent ke dalam database Supabase yang berisi pengetahuan tentang dokumen ER System Assurance (SA). Jika isi email ditemukan atau tidak ditemukan dalam database Supabase, respon akan dikirimkan kembali ke alamat email pengirim (From)*",
+        "content": "## Check email content against the Supabase knowledge base\n*Reads the email content for the AI Agent to check against a Supabase database containing project reference documents. Whether found or not found, a response is sent back to the original sender.*",
         "height": 592,
         "width": 672,
         "color": 3
@@ -420,7 +420,7 @@
     },
     {
       "parameters": {
-        "content": "## Kirim respon AI Agent ke email Pengirim\n",
+        "content": "## Send AI Agent response to sender\n",
         "height": 592,
         "width": 304,
         "color": 4
@@ -549,7 +549,7 @@
       "main": [
         [
           {
-            "node": "Need SA Assistant?",
+            "node": "Need Assistant Response?",
             "type": "main",
             "index": 0
           }
@@ -571,7 +571,7 @@
       "ai_outputParser": [
         [
           {
-            "node": "Need SA Assistant?",
+            "node": "Need Assistant Response?",
             "type": "ai_outputParser",
             "index": 0
           }
@@ -582,18 +582,18 @@
       "ai_languageModel": [
         [
           {
-            "node": "Need SA Assistant?",
+            "node": "Need Assistant Response?",
             "type": "ai_languageModel",
             "index": 0
           }
         ]
       ]
     },
-    "Need SA Assistant?": {
+    "Need Assistant Response?": {
       "main": [
         [
           {
-            "node": "IF Need SA Assistant",
+            "node": "IF Need Assistant Response",
             "type": "main",
             "index": 0
           }
@@ -677,7 +677,7 @@
         ]
       ]
     },
-    "IF Need SA Assistant": {
+    "IF Need Assistant Response": {
       "main": [
         [
           {
